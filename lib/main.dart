@@ -1,7 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 void main() {
@@ -29,11 +26,11 @@ class TimerApp extends StatefulWidget {
 
 class _TimerAppState extends State<TimerApp> {
   Timer? repeatedFunction;
-  Duration duration = Duration(seconds: 0);
+  Duration duration = const Duration(seconds: 0);
   bool isRunning = false;
 
   startTimer() {
-    repeatedFunction = Timer.periodic(Duration(seconds: 1), (timer) {
+    repeatedFunction = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         int newSecond = duration.inSeconds + 1;
         duration = Duration(seconds: newSecond);
@@ -44,7 +41,7 @@ class _TimerAppState extends State<TimerApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 33, 40, 43),
+      backgroundColor: const Color.fromARGB(255, 33, 40, 43),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -54,30 +51,30 @@ class _TimerAppState extends State<TimerApp> {
               Column(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(bottom: 22),
-                    padding: EdgeInsets.all(8),
+                    margin: const EdgeInsets.only(bottom: 22),
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(16)),
                     child: Text(
                       duration.inHours.toString().padLeft(2, "0"),
-                      style: TextStyle(fontSize: 80),
+                      style: const TextStyle(fontSize: 80),
                     ),
                   ),
-                  Text(
+                  const Text(
                     "Hours",
                     style: TextStyle(fontSize: 27, color: Colors.white),
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 width: 25,
               ),
               Column(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(bottom: 22),
-                    padding: EdgeInsets.all(8),
+                    margin: const EdgeInsets.only(bottom: 22),
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(16)),
@@ -86,23 +83,23 @@ class _TimerAppState extends State<TimerApp> {
                           .remainder(60)
                           .toString()
                           .padLeft(2, "0"),
-                      style: TextStyle(fontSize: 80),
+                      style: const TextStyle(fontSize: 80),
                     ),
                   ),
-                  Text(
+                  const Text(
                     "Minutes",
                     style: TextStyle(fontSize: 27, color: Colors.white),
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 width: 25,
               ),
               Column(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(bottom: 22),
-                    padding: EdgeInsets.all(8),
+                    margin: const EdgeInsets.only(bottom: 22),
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(16)),
@@ -111,10 +108,10 @@ class _TimerAppState extends State<TimerApp> {
                           .remainder(60)
                           .toString()
                           .padLeft(2, "0"),
-                      style: TextStyle(fontSize: 80),
+                      style: const TextStyle(fontSize: 80),
                     ),
                   ),
-                  Text(
+                  const Text(
                     "Seconds",
                     style: TextStyle(fontSize: 27, color: Colors.white),
                   ),
@@ -122,7 +119,7 @@ class _TimerAppState extends State<TimerApp> {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
           isRunning
@@ -131,51 +128,54 @@ class _TimerAppState extends State<TimerApp> {
                   children: [
                     ElevatedButton(
                       style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.red),
-                          padding:
-                              MaterialStateProperty.all(EdgeInsets.all(15)),
+                          backgroundColor: repeatedFunction!.isActive
+                              ? MaterialStateProperty.all(Colors.red)
+                              : MaterialStateProperty.all(Colors.blue),
+                          padding: MaterialStateProperty.all(
+                              const EdgeInsets.all(15)),
                           shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)))),
                       onPressed: () {
                         setState(() {
                           if (repeatedFunction!.isActive) {
-                          repeatedFunction!.cancel();
-                        } else {
-                          startTimer();
-                        }
+                            repeatedFunction!.cancel();
+                          } else {
+                            startTimer();
+                          }
                         });
                       },
                       child: Text(
                           repeatedFunction!.isActive ? "Stop Timer" : "Resume",
-                          style: TextStyle(fontSize: 20, color: Colors.white)),
+                          style: const TextStyle(
+                              fontSize: 20, color: Colors.white)),
                     ),
-                    SizedBox(width: 30),
+                    const SizedBox(width: 30),
                     ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(Colors.red),
-                          padding:
-                              MaterialStateProperty.all(EdgeInsets.all(15)),
+                          padding: MaterialStateProperty.all(
+                              const EdgeInsets.all(15)),
                           shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)))),
                       onPressed: () {
                         repeatedFunction!.cancel();
                         setState(() {
-                          duration = Duration(seconds: 0);
+                          duration = const Duration(seconds: 0);
                           isRunning = false;
                         });
                       },
-                      child: Text("Cancel",
+                      child: const Text("Cancel",
                           style: TextStyle(fontSize: 20, color: Colors.white)),
                     ),
                   ],
                 )
               : ElevatedButton(
                   style: ButtonStyle(
-                      padding: MaterialStateProperty.all(EdgeInsets.all(15)),
+                      padding:
+                          MaterialStateProperty.all(const EdgeInsets.all(15)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)))),
                   onPressed: () {
@@ -184,7 +184,7 @@ class _TimerAppState extends State<TimerApp> {
                       isRunning = true;
                     });
                   },
-                  child: Text("Start Timer",
+                  child: const Text("Start Timer",
                       style: TextStyle(fontSize: 23, color: Colors.white)),
                 )
         ],
